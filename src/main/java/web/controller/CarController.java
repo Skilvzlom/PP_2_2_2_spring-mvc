@@ -6,26 +6,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.Car;
-import web.service.CarService;
+import web.service.CarServiceImp;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class CarController {
 
-    private CarService carService;
+    private CarServiceImp carService;
 
     @Autowired
-    public CarController(CarService carService) {
+    public CarController(CarServiceImp carService) {
         this.carService = carService;
     }
 
     @GetMapping(value = "/cars")
     public String getCars(@RequestParam(name = "count", required = false, defaultValue = "5") int count, Model model) {
-        List<Car> allCars = carService.getAllCars();
-        List<Car> subCar = allCars.subList(0, Math.min(count, allCars.size()));
-        model.addAttribute("cars", subCar);
+        List<Car> carList = carService.getSubCars(count);
+        model.addAttribute("cars", carList);
         return "cars";
     }
 }
