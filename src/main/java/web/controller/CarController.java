@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class CarController {
 
-    private CarServiceImp carService;
+    private final CarServiceImp carService;
 
     @Autowired
     public CarController(CarServiceImp carService) {
